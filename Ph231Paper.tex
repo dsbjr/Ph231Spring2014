@@ -1,0 +1,231 @@
+\NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
+[1994/12/01]% LaTeX date must December 1994 or later
+
+\documentclass[12pt]{article}
+\pagestyle{headings}
+
+% Page length commands go here in the preamble
+\setlength{\oddsidemargin}{-0.25in} % Left margin of 1 in + 0 in = 1 in
+\setlength{\textwidth}{7in}   % Right margin of 8.5 in - 1 in - 6.5 in = 1 in
+\setlength{\topmargin}{-.75in}  % Top margin of 2 in -0.75 in = 1 in
+\setlength{\textheight}{9.2in}  % Lower margin of 11 in - 9 in - 1 in = 1 in
+\renewcommand{\baselinestretch}{1.0} % 1.5 denotes double spacing. Changing it will change the spacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath,amsthm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\title{Composite Fermions and the Integer and Fractional Quantum Hall Effects}
+\author{Derrick S. Boone, Jr.}
+\date{\today}
+
+
+
+
+%    Some definitions useful in producing this sort of documentation:
+\chardef\bslash=`\\ % p. 424, TeXbook
+%    Normalized (nonbold, nonitalic) tt font, to avoid font
+%    substitution warning messages if tt is used inside section
+%    headings and other places where odd font combinations might
+%    result.
+\newcommand{\ntt}{\normalfont\ttfamily}
+%    command name
+\newcommand{\cn}[1]{{\protect\ntt\bslash#1}}
+%    LaTeX package name
+\newcommand{\pkg}[1]{{\protect\ntt#1}}
+%    File name
+\newcommand{\fn}[1]{{\protect\ntt#1}}
+%    environment name
+\newcommand{\env}[1]{{\protect\ntt#1}}
+\hfuzz1pc % Don't bother to report overfull boxes if overage is < 1pc
+
+%       Theorem environments
+
+%% \theoremstyle{plain} %% This is the default
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+
+%\numberwithin{equation}{section}
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+
+\newcommand{\bysame}{\mbox{\rule{3em}{.4pt}}\,}
+
+%       Math definitions
+
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\st}{\sigma}
+\newcommand{\XcY}{{(X,Y)}}
+\newcommand{\SX}{{S_X}}
+\newcommand{\SY}{{S_Y}}
+\newcommand{\SXY}{{S_{X,Y}}}
+\newcommand{\SXgYy}{{S_{X|Y}(y)}}
+\newcommand{\Cw}[1]{{\hat C_#1(X|Y)}}
+\newcommand{\G}{{G(X|Y)}}
+\newcommand{\PY}{{P_{\mathcal{Y}}}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+
+\DeclareMathOperator{\per}{per}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\non}{non}
+\DeclareMathOperator{\cf}{cf}
+\DeclareMathOperator{\add}{add}
+\DeclareMathOperator{\Cham}{Cham}
+\DeclareMathOperator{\IM}{Im}
+\DeclareMathOperator{\esssup}{ess\,sup}
+\DeclareMathOperator{\meas}{meas}
+\DeclareMathOperator{\seg}{seg}
+
+%    \interval is used to provide better spacing after a [ that
+%    is used as a closing delimiter.
+\newcommand{\interval}[1]{\mathinner{#1}}
+
+%    Notation for an expression evaluated at a particular condition. The
+%    optional argument can be used to override automatic sizing of the
+%    right vert bar, e.g. \eval[\biggr]{...}_{...}
+\newcommand{\eval}[2][\right]{\relax
+  \ifx#1\right\relax \left.\fi#2#1\rvert}
+
+%    Enclose the argument in vert-bar delimiters:
+\newcommand{\envert}[1]{\left\lvert#1\right\rvert}
+\let\abs=\envert
+
+%    Enclose the argument in double-vert-bar delimiters:
+\newcommand{\enVert}[1]{\left\lVert#1\right\rVert}
+\let\norm=\enVert
+
+\begin{document}
+\maketitle
+
+\abstract{Provide a summary of your paper in a few sentences, here in the abstract.  Please leave the first 14 lines of the \texttt{.tex} file unchanged, so everyone uses the same fontsize, margins, etc.
+The rest of this file is taken from the American Mathematical Society at \url{ ftp://ftp.ams.org/ams/amslatex/math/} and may provide you with some useful commands.
+}
+
+\section{The Classical Hall Effect}
+A charged particle moving in a magnetic field is experiences the Lorentz force, perpendicular to both the velocity of the particle and the magnetic field and proportional to the product of the charge, speed, and magnetic field strength \cite{grif:electro}:
+
+\begin{equation}
+\vec{\mathbf{F}} = q(\vec{\mathbf{v}} \times \vec{\mathbf{B}})
+\end{equation}
+
+During the diffusive transport of charge carriers (electrons or holes) in a conducting material exposed to a magnetic field, the lorentz force gives rise to the classical hall effect. Charge carriers accumulate along the edges of a current-carrying strip of material, creating an electric field transverse to the direction of the current and a corresponding \textit{Hall Voltage}, given by:
+
+\begin{equation}
+V_{h} = \frac{I B R_{H}}{t}
+\end{equation}
+
+Where $I$,  $B$, $R_{H}$, and $t$ are the current, magnetic field strength, hall coefficient (an intrinsic property of the material), and the thickness of the current-carrying sample, respectively. The hall effect is often used to determine the charge and density of the charge carriers in a material \cite{pier:semi}.
+
+At low temperatures and densities and small length scales, the transport of charge carriers (hereafter assumed to be electrons) subject to a magnetic field is no longer dominated by collisions between the electrons or with scatterers in the material. When the average time between scattering events exceeds the cyclotron period of the electrons, transport becomes ballistic. The delicate interaction between the kinetic and potential energy of ballistic electrons in a magnetic field gives rise to the rich physics of the quantum hall effect \cite{been:trans}.
+
+\section{The Integer Quantum Hall Effect}
+In 1980, von Klitzing, Dorda, and Pepper performed hall measurements at high magnetic fields and low temperatures (up to 18 Tesla and as low as 1.5 Kelvin) on a two-dimensional electron gas (2DEG) at the inversion layer of a silicon-based metal oxide semi-conductor field effect transistor \cite{vonK:iqhe}. The result of these measurements showed that the hall voltage plateaued and the longitudinal voltage approached zero at certain discrete values of electron density (modulated by applying a gate voltage). 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{vonKQHEMeasurement.png}
+\caption{von Klitzing's measurement of the hall voltage $U_{h}$ and longitudinal voltage $U_{pp}$ \cite{vonK:ique}. Note that the minima observed include spin and valley degeneracy.}
+\label{example}
+\end{figure}
+
+We can understand the behavior of $U_{h}$ and $U_{pp}$ by examining the wavefunction for electrons in a 2DEG subject to a magnetic field. Consider a system in which the magnetic field is oriented in the z-direction using a gauge $\vec{\mathbf{A}} = (0,Bx,0)$. The Hamiltonian for this system\footnote{neglecting electron-electron interactions} is given by
+
+\begin{equation}
+\hat{H} = \sum_{i} \hat{H_{i}} = \frac{1}{2m_{e}} \left[ \hat{p}_{x,i}^{2} + \left(\hat{p}_{y,i} + \frac{eB}{c} \hat{x,i} \right)^{2} \right]
+\end{equation}
+
+Because the Hamiltonian does not explicity depend on the coordinates $y,i$, we can guess an ansatz solution of the form $\Psi(x,y) = \psi_{x}(x) e^{ik_{y}y}$ for a single electron. Solving the Schrodinger equation using this ansatz gives $\psi_{x}(x)$ as the solution to the quantum harmonic oscillator, and therefore the overall solution for a single electron becomes:
+
+\begin{equation}
+\Psi(x,y) = N e^{ik_{y}y}e^{\frac{(x-X)^{2}}{2(\hbar c/eB)}} H_{n} \left(\frac{x-X}{\sqrt{\hbar c/ eB}} \right)
+\end{equation}
+
+Where $X$ is a parameter related to the size of the cyclotron orbit, $N$ is a normalization constant, and $H_{n}$ is the nth Hermite polynomial. The ground state of the many electron wavefunction, called the \textit{lowest landau level} can be written as \cite{yosh:qhe}
+
+\begin{equation}
+\psi(z,\overline{z}) = N \prod_{i > j} (z_{i} - z_{j}) e^{-\frac{eB}{4 \hbar c} z \overline{z}}
+\end{equation}
+
+The quantized behavior of $U_{h}$ and $U_{pp}$ can be explained by considering the energy density of states of electrons having the above wavefunction. Because the energies are quantized and identical to the harmonic oscillator, the energy density of states is given by
+
+\begin{equation}
+D(E) \propto \sum_{n} \delta \left(E - \left(n + \frac{1}{2} \hbar \omega \right) \right)
+\end{equation}
+
+where $n$ is the index of the landau level the electrons occupy, and $\omega$ is the cyclotron frequency given by $\omega = \frac{eB}{m_{e} c}$ \cite{chak:qhe}. Note that the previous expression is exact for only ideal materials. The presence of defects and impurities will broaden the delta function peaks.
+
+As the gate is used to tune the electron density, the Fermi energy in the sample passes through the broadened peaks in the expression for the density of states. In regions where the density of states is zero, topologically-protected edge states carry current without dissipation and therefore $U_{pp}$ approaches zero and $U_{h}$ is fixed at a constant voltage. The changes that occur as the system moves through different landau levels are smooth curves rather than step functions because of impurity broadening of the density of states.
+
+The wavefunction for quantum hall electrons is highly degenerate, as all the electrons must pack into states having quantum harmonic oscillator energies. The degeneracy \footnote{Here we assume that we work in a material without valley degeneracy and that the magnetic field is large enough such that the 2DEG is spin polarized} is given by \cite{chak:qhe}
+
+\begin{equation}
+\nu = \frac{n_{e}\Phi_{0}}{\Phi}
+\end{equation}
+
+where $n_{e}$ is the number of electrons in the sample, $\Phi$ is the magnetic flux through the sample, and $\Phi_{0}$ is the quantum of magnetic flux. $\nu$ is also called the filling factor, because it can be interpreted as the number of landau levels that are filled for a given electron density and magnetic flux. For filling factors having $\nu$ less than one, there is at least one flux quantum for every electron, so all the electrons are in the lowest landau level. For $\nu$ greater than one, each flux quanta already is already associated with at least one electron, so the by the pauli exclusion principle the remaining electrons are pushed into higher landau levels.
+
+The quantum hall wavefunction and the energy density of states described above explain the quantum hall effect when $\nu$ is an integer. However, careful experiments reveal quantized values of the hall and longitudinal voltages when $\nu$ is a ratio. These states require a more careful analysis.
+
+\section{The Fractional Quantum Hall Effect}
+
+In 1982, Tsui, Stormer, and Gossard measured a quantized hall voltage at $\nu = \frac{1}{3}$ \cite{tsui:onethird}, which they called "striking evidence for a new electronic state...." Their results also hint at quantized hall voltages for $\nu = \frac{2}{3}$ and $\nu = \frac{3}{2}$. We would not expect a gap in the density of states at filling factors corresponding to fractions. Accordingly, the analysis for the integer quantum hall effect breaks down in the presence of Tsui's measurement.
+
+In 1983, Laughlin, by a variational method, proposed the form of a wavefunction that accurately describes fractional quantum hall states \cite{lau:fqhe}. The \textit{Laughlin wavefunction} is given by
+
+\begin{equation}
+\psi = \prod_{i < j} \left( \frac{z_{i} - z_{j}}{l_{B}} \right)^{3} e^{-\frac{1}{4} \sum_{i} \frac{|z_{i}|^{2}}{l_{B}^{2}}}
+\end{equation}
+
+where $z_{i} = x_{i} + iy_{i}$ is the complex position of the \textit{i}th electron. This wavefunction describes a lowest landau level 
+
+
+
+
+
+
+
+\begin{thebibliography}{10}
+\bibitem{grif:electro}
+Griffiths, David J. Introduction to Electrodynamics. (Prentice Hall. 1999.)
+
+\bibitem{pier:semi}
+Pierret, Robert F. Advanced Semiconductor Fundamentals. (Prentice Hall. Upper Saddle River, NJ. 2002)
+
+\bibitem{been:trans}
+Beenakker C. W. J. and van Houten H. Solid State Physics, 44, 1-228 (1991).
+
+\bibitem{vonK:iqhe}
+von Klitzing, K., Dorda, G., and Pepper, M. Physics Review Letters, 45, 494 (1980)
+
+\bibitem{yosh:qhe}
+Yoshioka, D. The Quantum Hall Effect. (Springer-Verlag Berlin Heidelberg New York. 1998.)
+
+\bibitem{chak:qhe}
+Chakraborty, T. and Pietil{\"a}inen P. The Quantum Hall Effects: Integral and Fractional. (Spring-Verlag Berlin Heidelberg. 1995.)
+
+\bibitem{tsui:onethird}
+Tsui, D. C., Stormer, H. L. , and Gossard, A. C. Physics Review Letters, 48, 1559 (1982)
+
+\bibitem{lau:fqhe}
+Laughlin, R. B. Physics Review Letters, 50, 1395 (1983)
+
+\end{thebibliography}
+\end{document}
